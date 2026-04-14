@@ -207,4 +207,4 @@ The following playbook mirrors the typical manual workflow — create a key, cre
 
 ## License
 
-GNU General Public License v2.0 or later. See [LICENSES/GPL-2.0-or-later.txt](LICENSES/GPL-2.0-or-later.txt).
+GNU General Public License v3.0. See [LICENSE](LICENSE).
