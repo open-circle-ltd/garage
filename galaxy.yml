@@ -1,0 +1,21 @@
+---
+namespace: opencircle
+name: garage
+version: 1.0.0
+readme: README.md
+authors:
+  - Carl Stroemstedt <carl.stroemstedt@open-circle.ch>
+description: Ansible collection for managing Garage S3 (keys, buckets, permissions) via the Garage Admin API v2.
+license_file: LICENSE
+tags:
+  - garage
+  - s3
+  - storage
+
+repository: https://github.com/open-circle-ltd/garage
+documentation: ""
+homepage: ""
+issues: https://github.com/open-circle-ltd/garage/issues
+build_ignore:
+  - .DS_Store
+  - "*.tar.gz"
