@@ -1,4 +1,4 @@
-# occ.garage
+# opencircle.garage
 
 Ansible collection for managing [Garage S3](https://garagehq.deuxfleurs.fr/) via the Garage Admin API v2.
 
@@ -13,14 +13,14 @@ Provides modules to create and manage S3 access keys, buckets, and bucket-key pe
 ## Installation
 
 ```bash
-ansible-galaxy collection install occ.garage
+ansible-galaxy collection install opencircle.garage
 ```
 
 Or from source:
 
 ```bash
-git clone https://git.open-circle.ch/occ/ansible/collections/occ.garage.git
-ansible-galaxy collection install occ.garage/ --force
+git clone https://github.com/open-circle-ltd/garage.git
+ansible-galaxy collection install garage/ --force
 ```
 
 ## Authentication
@@ -37,7 +37,7 @@ Pass the token via the `api_token` parameter (mark it `no_log: true` or store it
 
 ## Modules
 
-### `occ.garage.garage_key`
+### `opencircle.garage.garage_key`
 
 Manage S3 access keys.
 
@@ -63,7 +63,7 @@ Manage S3 access keys.
 
 ---
 
-### `occ.garage.garage_bucket`
+### `opencircle.garage.garage_bucket`
 
 Manage S3 buckets.
 
@@ -98,7 +98,7 @@ Manage S3 buckets.
 
 ---
 
-### `occ.garage.garage_bucket_key`
+### `opencircle.garage.garage_bucket_key`
 
 Grant or revoke S3 access key permissions on a bucket.
 
@@ -134,7 +134,7 @@ The following playbook mirrors the typical manual workflow — create a key, cre
 
   tasks:
     - name: Create backup access key
-      occ.garage.garage_key:
+      opencircle.garage.garage_key:
         api_url: "{{ garage_api_url }}"
         api_token: "{{ garage_admin_token }}"
         name: backup-key
@@ -148,14 +148,14 @@ The following playbook mirrors the typical manual workflow — create a key, cre
       when: key_result.key.secret_access_key is not none
 
     - name: Create backup bucket
-      occ.garage.garage_bucket:
+      opencircle.garage.garage_bucket:
         api_url: "{{ garage_api_url }}"
         api_token: "{{ garage_admin_token }}"
         name: my-backups
         state: present
 
     - name: Grant key read+write on the bucket
-      occ.garage.garage_bucket_key:
+      opencircle.garage.garage_bucket_key:
         api_url: "{{ garage_api_url }}"
         api_token: "{{ garage_admin_token }}"
         bucket_alias: my-backups
@@ -169,7 +169,7 @@ The following playbook mirrors the typical manual workflow — create a key, cre
 
 ```yaml
 - name: Create a public static site bucket with a 10 GiB quota
-  occ.garage.garage_bucket:
+  opencircle.garage.garage_bucket:
     api_url: "{{ garage_api_url }}"
     api_token: "{{ garage_admin_token }}"
     name: my-static-site
@@ -185,7 +185,7 @@ The following playbook mirrors the typical manual workflow — create a key, cre
 
 ```yaml
 - name: Revoke all key permissions
-  occ.garage.garage_bucket_key:
+  opencircle.garage.garage_bucket_key:
     api_url: "{{ garage_api_url }}"
     api_token: "{{ garage_admin_token }}"
     bucket_alias: my-backups
@@ -196,7 +196,7 @@ The following playbook mirrors the typical manual workflow — create a key, cre
     state: absent
 
 - name: Delete the bucket (must be empty)
-  occ.garage.garage_bucket:
+  opencircle.garage.garage_bucket:
     api_url: "{{ garage_api_url }}"
     api_token: "{{ garage_admin_token }}"
     name: my-backups
