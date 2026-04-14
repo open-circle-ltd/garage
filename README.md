@@ -6,7 +6,7 @@ Provides modules to create and manage S3 access keys, buckets, and bucket-key pe
 
 ## Requirements
 
-- Ansible >= 2.13
+- Ansible >= 2.15
 - Python >= 3.9
 - A running Garage instance with the admin API enabled and an admin token
 
