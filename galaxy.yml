@@ -1,5 +1,5 @@
 ---
-namespace: opencircle
+namespace: occ_automation
 name: garage
 version: 1.0.0
 readme: README.md
