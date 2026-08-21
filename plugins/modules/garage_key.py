@@ -63,7 +63,7 @@ notes:
 
 EXAMPLES = r'''
 - name: Create an S3 key allowed to create buckets
-  occ.garage.garage_key:
+  occ_automation.garage.garage_key:
     api_url: http://garage.example.com:3903
     api_token: "{{ garage_admin_token }}"
     name: backup-key
@@ -77,7 +77,7 @@ EXAMPLES = r'''
   when: key_result.key.secret_access_key is not none
 
 - name: Remove a key by ID
-  occ.garage.garage_key:
+  occ_automation.garage.garage_key:
     api_url: http://garage.example.com:3903
     api_token: "{{ garage_admin_token }}"
     key_id: GK1234567890abcdef
@@ -105,7 +105,7 @@ key:
 '''
 
 from ansible.module_utils.basic import AnsibleModule
-from ansible_collections.occ.garage.plugins.module_utils.garage_api import (
+from ansible_collections.occ_automation.garage.plugins.module_utils.garage_api import (
     GarageAPI,
     GarageAPIError,
     GARAGE_API_ARGS,

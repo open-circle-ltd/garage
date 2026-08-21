@@ -78,7 +78,7 @@ notes:
 
 EXAMPLES = r'''
 - name: Create a bucket with a global alias
-  occ.garage.garage_bucket:
+  occ_automation.garage.garage_bucket:
     api_url: http://garage.example.com:3903
     api_token: "{{ garage_admin_token }}"
     name: my-backups
@@ -86,7 +86,7 @@ EXAMPLES = r'''
   register: bucket
 
 - name: Enable website hosting
-  occ.garage.garage_bucket:
+  occ_automation.garage.garage_bucket:
     api_url: http://garage.example.com:3903
     api_token: "{{ garage_admin_token }}"
     name: my-static-site
@@ -96,7 +96,7 @@ EXAMPLES = r'''
     state: present
 
 - name: Apply size and object quotas
-  occ.garage.garage_bucket:
+  occ_automation.garage.garage_bucket:
     api_url: http://garage.example.com:3903
     api_token: "{{ garage_admin_token }}"
     name: my-backups
@@ -105,7 +105,7 @@ EXAMPLES = r'''
     state: present
 
 - name: Delete an empty bucket
-  occ.garage.garage_bucket:
+  occ_automation.garage.garage_bucket:
     api_url: http://garage.example.com:3903
     api_token: "{{ garage_admin_token }}"
     name: my-backups
@@ -143,7 +143,7 @@ bucket:
 '''
 
 from ansible.module_utils.basic import AnsibleModule
-from ansible_collections.occ.garage.plugins.module_utils.garage_api import (
+from ansible_collections.occ_automation.garage.plugins.module_utils.garage_api import (
     GarageAPI,
     GarageAPIError,
     GARAGE_API_ARGS,
