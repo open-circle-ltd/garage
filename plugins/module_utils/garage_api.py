@@ -40,6 +40,22 @@ class GarageAPI(object):
     def _url(self, path):
         return '{0}/v2/{1}'.format(self.base_url, path)
 
+    @staticmethod
+    def _status(resp):
+        """Best-effort HTTP status of a successful response."""
+        try:
+            return resp.getcode()
+        except AttributeError:
+            return getattr(resp, 'status', 0) or 0
+
+    @staticmethod
+    def _content_type(resp):
+        """Best-effort Content-Type header of a response."""
+        try:
+            return resp.info().get('Content-Type') or 'unset'
+        except AttributeError:
+            return 'unset'
+
     def _request(self, method, path, data=None, params=None):
         url = self._url(path)
         if params:
@@ -63,7 +79,15 @@ class GarageAPI(object):
             text = raw.decode('utf-8', errors='replace').strip()
             if not text:
                 return {}
-            return json.loads(text)
+            try:
+                return json.loads(text)
+            except ValueError:
+                raise GarageAPIError(
+                    self._status(resp),
+                    'expected a JSON body from {0} but got Content-Type {1}: {2}'.format(
+                        url, self._content_type(resp), text[:300]
+                    ),
+                )
         except HTTPError as e:
             raw = e.read()
             try:
@@ -72,7 +96,7 @@ class GarageAPI(object):
                 msg = raw.decode('utf-8', errors='replace') if raw else str(e)
             raise GarageAPIError(e.code, msg)
         except URLError as e:
-            raise GarageAPIError(0, str(e.reason))
+            raise GarageAPIError(0, '{0}: {1}'.format(url, e.reason))
 
     # ------------------------------------------------------------------
     # Key operations

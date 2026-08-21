@@ -4,6 +4,20 @@ occ_automation.garage Release Notes
 
 .. contents:: Topics
 
+v1.0.2
+======
+
+Release Summary
+---------------
+
+Diagnostics release. API responses that are not JSON now produce an actionable error.
+
+Bugfixes
+--------
+
+- A non-JSON response body with a 2xx status no longer escapes as an unhandled ``json.decoder.JSONDecodeError`` (``Expecting value: line 1 column 1 (char 0)``). It is raised as a ``GarageAPIError`` reporting the status, request URL, ``Content-Type`` and the first 300 characters of the body, which identifies cases where a proxy, ingress or the S3 endpoint answered instead of the Garage admin API.
+- Connection failures now name the request URL alongside the underlying reason.
+
 v1.0.1
 ======
 
