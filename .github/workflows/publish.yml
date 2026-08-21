@@ -18,6 +18,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Verify tag matches galaxy.yml version
+        run: |
+          tag_version="${GITHUB_REF_NAME#v}"
+          galaxy_version="$(sed -n 's/^version:[[:space:]]*//p' galaxy.yml)"
+          if [ "$tag_version" != "$galaxy_version" ]; then
+            echo "::error::Tag ${GITHUB_REF_NAME} does not match galaxy.yml version ${galaxy_version}"
+            exit 1
+          fi
+          echo "Publishing version ${galaxy_version}"
       - name: Build collection
         run: ansible-galaxy collection build
       - name: Publish collection
